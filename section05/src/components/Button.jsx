@@ -1,10 +1,18 @@
 import React from 'react'
 
 const Button = ({ text, color="black", children }) => {
-    console.log(text,color)
-    //console.log(props) // text={"메일"} , text={"카페"}, text={"블로그"} 객체 형태로 전달
+    // console.log(text,color)
+    
+    // SyntheticBaseEvent (합성 이벤트 객체) _ 우리가 모든 브라우저에서 사용할 수 있는 통합된 규격의 이벤트 객체
+    const onClickButton = (e) => {
+        console.log(e) // SyntheticBaseEvent
+        console.log(text)
+    }
+
     return (
-        <button style={{color}}>
+        <button 
+            onClick={ onClickButton }
+            style={{color}}>
             {text} - {color.toUpperCase()}
             {children}
         </button>
