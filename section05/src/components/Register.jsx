@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 // 간단한 회원가입 폼
 // 1. 이름
@@ -14,8 +14,10 @@ const Register = () => {
         country : "",
         bio : ""
     })
-    // console.log(input)
 
+    const refObj = useRef(0);
+    console.log("Register 렌더링") // 이 부분은 렌더링이 일어나지 않음
+    
     // 통합 이벤트 핸들러
     const onChange = (e) => {
         setInput({
@@ -24,41 +26,12 @@ const Register = () => {
         })
     }
 
-    {/*
-    // 생년월일
-    const onChangeBirth = (e) => {
-        setInput({
-            ...input, // 기존 값을 변경하지 않고 그대로 유지하도록
-            birth : e.target.value 
-        })
-    }
-
-    // 이름
-    const onChangedName = (e) => {
-        setInput({
-            ...input, // 기존 값을 변경하지 않고 그대로 유지하도록
-            name : e.target.value 
-        })
-    }
-
-    // 국적
-    const onChangedCountry = (e) => {
-        setInput({
-            ...input, // 기존 값을 변경하지 않고 그대로 유지하도록
-            country : e.target.value 
-        })
-    }
-
-    const onChangedBio = (e) => {
-        setInput({
-            ...input, // 기존 값을 변경하지 않고 그대로 유지하도록
-            bio : e.target.value 
-        })
-    }
-    */}
-
     return (
     <div>
+        <button onClick={() => { // 이벤트 핸들러만 실행된다.
+            refObj.current++ 
+            console.log(refObj.current)
+        }}></button>
         <div>
             <input name="name" value={input.name} onChange={onChange} type="text" placeholder={"이름"} />
             {input.name}
