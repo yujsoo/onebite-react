@@ -15,25 +15,32 @@ const Register = () => {
         bio : ""
     })
 
-    const refObj = useRef(0);
-    console.log("Register 렌더링") // 이 부분은 렌더링이 일어나지 않음
+    const countRef = useRef(0);
+    console.log(countRef)
+    const inputRef = useRef()
     
     // 통합 이벤트 핸들러
     const onChange = (e) => {
+        countRef.current++;
+        console.log(countRef.current)
         setInput({
             ...input,
             [e.target.name]:e.target.value
         })
     }
 
+    const onSubmit = () => {
+        if (input.name === "") {
+            //이름을 입력하는 DOM 요소 포커스
+            //console.log(inputRef.current)
+            inputRef.current.focus();
+        }
+    }
+
     return (
     <div>
-        <button onClick={() => { // 이벤트 핸들러만 실행된다.
-            refObj.current++ 
-            console.log(refObj.current)
-        }}></button>
         <div>
-            <input name="name" value={input.name} onChange={onChange} type="text" placeholder={"이름"} />
+            <input ref={inputRef} name="name" value={input.name} onChange={onChange} type="text" placeholder={"이름"} />
             {input.name}
         </div>
         <div>
@@ -53,6 +60,7 @@ const Register = () => {
             <textarea name="bio" value={input.bio} onChange={onChange} ></textarea>
             {input.bio}
         </div>
+        <button onClick={onSubmit}>제출</button>
     </div>
     )
 }
