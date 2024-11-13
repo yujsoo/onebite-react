@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Controller = ({onClickButton,a}) => {
+const Controller = ({onClickButton}) => {
   return (
     <div>
         <button onClick={() => {onClickButton(-1)}}>-1</button>
