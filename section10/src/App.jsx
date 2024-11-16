@@ -1,5 +1,5 @@
 import './App.css'
-import { useState, useRef, useReducer } from 'react'
+import { useState, useRef, useReducer, useCallback } from 'react'
 import Header from './components/Header'
 import Editor from './components/Editor'
 import List from './components/List'
@@ -40,7 +40,7 @@ function App() {
   const [todo, dispatch] = useReducer(reducer,mockData);
   const idRef = useRef(3);
   
-  const onCreate = (contents) => {
+  const onCreate = useCallback((contents) => {
     dispatch({
       type : "CREATE",
       data : {
@@ -50,21 +50,29 @@ function App() {
           date : new Date().getTime(),
       }
     })
-  }
+  },[])
 
-  const onUpdate = (targetId) => {
+  const onUpdate = useCallback((targetId) => {
     dispatch({
       type:"UPDATE",
       targetId : targetId
     })
-  }
+  },[]);
 
-  const onDelete = (targetId) => {
+  const onDelete = useCallback((targetId) => {
     dispatch({
       type: "DELETE",
       targetId : targetId
     })
-  }
+  },[])
+
+  /*
+  // 함수 메모제이션
+  // 빈 배열로 전달시, 마운트 될 때 즉 함수를 딱 한 번만 생성하고 그 뒤는 실행 X
+  const func = useCallback(() => {
+
+  },[])
+  */
 
   return (
     <div className="App">
