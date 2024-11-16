@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import './TodoItem.css'
 
 const TodoItem = ({ id, isDone, content, date, onUpdate, onDelete }) => {
@@ -19,4 +19,16 @@ const TodoItem = ({ id, isDone, content, date, onUpdate, onDelete }) => {
   )
 }
 
-export default TodoItem
+// 고차 컴포넌트 (HOC)
+export default memo (TodoItem, (prevProps, nextProps) => {
+  //반환값에 따라, Props가 바뀌었는지 안바뀌었지 판단 
+  // T-> Props 바뀌지 않음 -> 리렌더링 X 
+  // F-> Props 바뀜-> 리렌버링 0
+  if (prevProps.id != nextProps.id) return false; 
+  if (prevProps.isDone !== nextProps. isDone) return false;
+  if (prevProps.content != nextProps.content) return false;
+  if (prevProps.date != nextProps.date) return false;
+  
+  // 위 조건이 모두 만족되지 않으면 : prevProps와 nextProps의 값들이 모두 동일하면 true를 반환 -> 리렌더링을 건너뛰게 한다.
+  return true;
+});
