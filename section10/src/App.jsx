@@ -3,7 +3,6 @@ import { useState, useRef, useReducer, useCallback } from 'react'
 import Header from './components/Header'
 import Editor from './components/Editor'
 import List from './components/List'
-import MemoExam from './components/MemoExam'
 
 const mockData = [
   {
@@ -80,7 +79,6 @@ function App() {
       <Header/>
       <Editor onCreate={onCreate}/>
       <List todo={todo} onUpdate={onUpdate} onDelete={onDelete}/>
-      <MemoExam></MemoExam>
     </div>
   )
 }
