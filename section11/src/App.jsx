@@ -1,10 +1,10 @@
 import './App.css'
-import { useState, useRef, useReducer, useCallback, createContext } from 'react'
+import { useRef, useReducer, useCallback, createContext, useMemo } from 'react'
 import Header from './components/Header'
 import Editor from './components/Editor'
 import List from './components/List'
 
-const mockData = [
+const mockData = [  
   {
     id : 0,
     isDone : false,
@@ -36,13 +36,10 @@ function reducer(state,action){
   }
 }
 
-// createContext()를 이용하여 새로운 컨텍스트 객체 만들어보기 
-export const TodoContext = createContext();
-// console.log(TodoContext)
-// Provider(공급자)의 프로퍼티를 잘 알아두자.
 
-// App 컴포넌트 안에 만들지 않는 이유는?
-// 데이터를 하위에 공급만 해주면 될뿐 App 컴포넌트가 리렌더링이 계속 일어날때마다 컨텍스트가 새로 생성될 필요는 없다.
+export const TodoStateContext = createContext();
+export const TodoDispatchContext = createContext();
+
 
 function App() {
   const [todo, dispatch] = useReducer(reducer,mockData);
@@ -74,21 +71,19 @@ function App() {
     })
   },[])
 
-  /*
-  // 함수 메모제이션
-  // 빈 배열로 전달시, 마운트 될 때 즉 함수를 딱 한 번만 생성하고 그 뒤는 실행 X
-  const func = useCallback(() => {
-
+  const memoizeDispatch = useMemo(() => {
+    return { onCreate, onUpdate, onDelete }
   },[])
-  */
 
   return (
     <div className="App">
       <Header/>
-      <TodoContext.Provider value={{todo, onCreate, onUpdate, onDelete}}>
-        <Editor/>
-        <List/>
-      </TodoContext.Provider>
+      <TodoStateContext.Provider value={todo}>
+        <TodoDispatchContext.Provider value={memoizeDispatch}>
+          <Editor/>
+          <List/>
+        </TodoDispatchContext.Provider>
+      </TodoStateContext.Provider>
     </div>
   )
 }
