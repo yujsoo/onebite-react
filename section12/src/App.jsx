@@ -15,6 +15,8 @@ function App() {
         leftChild={<Button text={"left"}/>}
         rightChild={<Button text={"right"}/>}
       />
+      <Button type="POSITIVE" text={"POSITIVE"}/>
+      <Button type="NEGATIVE" text={"NEGATIVE"}/>
       <Routes>
         <Route path="/" element={<Home></Home>}></Route>
         <Route path="/new" element={<New></New>}></Route>
