@@ -5,7 +5,7 @@ import Diary from './pages/Diary';
 import New from './pages/New';
 import Notfound from './pages/Notfound';
 import Edit from './pages/Edit';
-import { useReducer, useRef } from 'react';
+import { useReducer, useRef, createContext } from 'react';
 
 const mokData = [
   {
@@ -30,6 +30,13 @@ function reducer(state,action){
     default : return state;
   }
 }
+
+// 일기 데이터를 공급할 컨텍스트부터 만들기
+const DiaryStateContext = createContext();
+
+// 함수 공급할 컨텍스트 만들기
+const DiaryDispatchContext = createContext();
+
 
 function App() {
   // 일기관리 데이터
@@ -76,13 +83,21 @@ function App() {
       <button onClick={ () => {onCreate(new Date().getTime(),1,"dd")}}>추가하기 테스트</button>
       <button onClick={ () => {onUpdate(1,new Date().getTime(),3,"수정된 일기입니다.")}}>변경하기 테스트</button>
       <button onClick={ () => {onDelete(1)} }>삭제 테스트</button>
-      <Routes>
-        <Route path="/" element={<Home></Home>}></Route>
-        <Route path="/new" element={<New></New>}></Route>
-        <Route path="/diary/:id" element={<Diary></Diary>}></Route>
-        <Route path='/edit/:id' element={<Edit></Edit>}></Route>
-        <Route path="*" element={<Notfound></Notfound>}></Route>
-      </Routes>
+      <DiaryStateContext.Provider value={data}>
+        <DiaryDispatchContext.Provider value={{
+          onCreate,
+          onUpdate,
+          onDelete
+        }}>
+          <Routes>
+            <Route path="/" element={<Home></Home>}></Route>
+            <Route path="/new" element={<New></New>}></Route>
+            <Route path="/diary/:id" element={<Diary></Diary>}></Route>
+            <Route path='/edit/:id' element={<Edit></Edit>}></Route>
+            <Route path="*" element={<Notfound></Notfound>}></Route>
+          </Routes>
+        </DiaryDispatchContext.Provider>
+      </DiaryStateContext.Provider>
     </>
   )
 }
