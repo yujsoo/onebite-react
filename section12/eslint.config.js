@@ -1,3 +1,4 @@
+/* eslint-disable no-dupe-keys */
 import js from '@eslint/js'
 import globals from 'globals'
 import react from 'eslint-plugin-react'
@@ -33,6 +34,9 @@ export default [
         'warn',
         { allowConstantExport: true },
       ],
+      "react/prop-types": "off",
+      "no-unused-vars":"off",
+      "react/react-in-jsx-scope": "off",
       "react-refresh/only-export-components":"off",
       "react/display-name": "off",
     },
