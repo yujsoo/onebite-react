@@ -10,15 +10,21 @@ import { useReducer, useRef, createContext } from 'react';
 const mokData = [
   {
     id:1,
-    createDate:new Date().getTime(),
+    createDate:new Date("2024-11-25").getTime(),
     emotionId:1,
     content:"1번 일기 내용"
   },
   {
     id:2,
-    createDate:new Date().getTime(),
+    createDate:new Date("2024-11-24").getTime(),
     emotionId:2,
     content:"2번 일기 내용"
+  },
+  {
+    id:3,
+    createDate:new Date("2024-10-22").getTime(),
+    emotionId:3,
+    content:"3번 일기 내용"
   }
 ]
 
@@ -32,10 +38,10 @@ function reducer(state,action){
 }
 
 // 일기 데이터를 공급할 컨텍스트부터 만들기
-const DiaryStateContext = createContext();
+export const DiaryStateContext = createContext();
 
 // 함수 공급할 컨텍스트 만들기
-const DiaryDispatchContext = createContext();
+export const DiaryDispatchContext = createContext();
 
 
 function App() {
