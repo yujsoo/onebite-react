@@ -3,6 +3,7 @@ import './Editor.css'
 import EmotionItem from './EmotionItem'
 import Button from './Button'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const emotionList = [
     {
@@ -43,13 +44,15 @@ const getStringDate = (targetDate) => {
 }
 
 
-const Editor = () => {
+const Editor = ({ onSubmit }) => {
     // 사용자가 입력한 일기 내용
     const [input, setInput] = useState({
         createDate:new Date(),
         emotionId: 3,
         content:""
     });
+
+    const nav = useNavigate();
 
     const onChangeInput = (e) => {
         //console.log(e.target.name);
@@ -71,6 +74,10 @@ const Editor = () => {
     }
 
     //const emotionId = 2;
+
+    const onClickSubmitButton = () => {
+        onSubmit(input); 
+    }
 
   return (
     <div className='editor'>
@@ -96,8 +103,8 @@ const Editor = () => {
             <textarea name="content" value={input.content} onChange={onChangeInput} placeholder='오늘은 어땠나요?'/>
         </section>
         <section className='button-section'>
-            <Button text={"취소하기"}/>
-            <Button text={"작성완료"} type={"POSITIVE"}/>
+            <Button onClick={() => nav(-1)} text={"취소하기"}/>
+            <Button onClick={onClickSubmitButton} text={"작성완료"} type={"POSITIVE"}/>
         </section>
     </div>
   )
