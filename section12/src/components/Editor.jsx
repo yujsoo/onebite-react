@@ -51,23 +51,49 @@ const Editor = () => {
         content:""
     });
 
-    const emotionId = 2;
+    const onChangeInput = (e) => {
+        //console.log(e.target.name);
+        //console.log(e.target.value);
+
+        let name = e.target.name;
+        let value = e.target.value;
+
+        if (name === 'createDate') {
+            value = new Date(value) // 문자열을 Date객체로 변환
+        }
+
+        setInput({
+            ...input, //기존 값 나열  
+            // [e.target.name]:e.target.value 
+            // 현재 입력한 요소를 value값으로 수정
+            [name] : value
+        })
+    }
+
+    //const emotionId = 2;
 
   return (
     <div className='editor'>
         <section className='date-section'>
             <h4>오늘의 날짜</h4>
-            <input type="date" name="" id="" value={getStringDate(input.createDate)}/>
+            <input type="date" name="createDate" id="" value={getStringDate(input.createDate)} onChange={onChangeInput}/>
         </section>
         <section className='emotion-section'>
             <h4>오늘의 감정</h4>
             <div className='emotion-list-wrapper'>
-                {emotionList.map((item) => <EmotionItem key={item.emotionId} {...item} isSelected={item.emotionId === emotionId }/>)}
+                {emotionList.map((item) => <EmotionItem 
+                onClick={() => onChangeInput({
+                    target : {
+                        name : "emotionId",
+                        value : item.emotionId
+                    }
+                })}
+                key={item.emotionId} {...item} isSelected={item.emotionId === input.emotionId }/>)}
             </div>
         </section>
         <section className='content-section'>
             <h4>오늘의 일기</h4>
-            <textarea placeholder='오늘은 어땠나요?'/>
+            <textarea name="content" value={input.content} onChange={onChangeInput} placeholder='오늘은 어땠나요?'/>
         </section>
         <section className='button-section'>
             <Button text={"취소하기"}/>
