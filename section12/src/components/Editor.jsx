@@ -2,7 +2,7 @@ import React from 'react'
 import './Editor.css'
 import EmotionItem from './EmotionItem'
 import Button from './Button'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const emotionList = [
@@ -44,7 +44,7 @@ const getStringDate = (targetDate) => {
 }
 
 
-const Editor = ({ onSubmit }) => {
+const Editor = ({ onSubmit, initData }) => {
     // 사용자가 입력한 일기 내용
     const [input, setInput] = useState({
         createDate:new Date(),
@@ -53,6 +53,15 @@ const Editor = ({ onSubmit }) => {
     });
 
     const nav = useNavigate();
+
+    useEffect(()=> {
+        if (initData) {
+            setInput({
+                ...initData,
+                createDate:new Date(Number(initData.createDate))
+            })
+        }
+    },[initData])
 
     const onChangeInput = (e) => {
         //console.log(e.target.name);
