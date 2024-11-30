@@ -4,44 +4,23 @@ import EmotionItem from './EmotionItem'
 import Button from './Button'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { emotionList } from '../util/constant'
+import { getStringDate } from '../util/get-string-date'
 
-const emotionList = [
-    {
-        emotionId:1,
-        emotionName:"완전 좋음"
-    },
-    {
-        emotionId:2,
-        emotionName:"좋음"
-    },
-    {
-        emotionId:3,
-        emotionName:"그럭저럭"
-    },
-    {
-        emotionId:4,
-        emotionName:"나쁨"
-    },
-    {
-        emotionId:5,
-        emotionName:"끔찍함"
-    }
-]
+// // 데이트 객체를 날짜 -> "2024-02-20" 형태의 문자열로 변환하는 함수
+// const getStringDate = (targetDate) => {
+//     let year = targetDate.getFullYear();
+//     let month = targetDate.getMonth() + 1;
+//     let date = targetDate.getDate();
 
-// 데이트 객체를 날짜 -> "2024-02-20" 형태의 문자열로 변환하는 함수
-const getStringDate = (targetDate) => {
-    let year = targetDate.getFullYear();
-    let month = targetDate.getMonth() + 1;
-    let date = targetDate.getDate();
-
-    if (month < 10) {
-        month = `0${month}`;
-    }
-    if (date < 10) {
-        date = `0${date}`
-    }  
-    return `${year}-${month}-${date}`
-}
+//     if (month < 10) {
+//         month = `0${month}`;
+//     }
+//     if (date < 10) {
+//         date = `0${date}`
+//     }  
+//     return `${year}-${month}-${date}`
+// }
 
 
 const Editor = ({ onSubmit, initData }) => {
