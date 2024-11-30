@@ -4,23 +4,13 @@ import Header from '../components/Header'
 import Editor from '../components/Editor'
 import Button from '../components/Button'
 import { DiaryDispatchContext, DiaryStateContext } from '../App'
+import useDiary from '../hooks/useDiary'
 
 const Edit = () => {
   const params = useParams();
   const nav = useNavigate();
   const { onDelete, onUpdate } = useContext(DiaryDispatchContext)
-  const data = useContext(DiaryStateContext)
-  const [currentDiaryItem, setCurrentDiaryItem] = useState();
-
-  useEffect(()=> {
-    const currentDiaryItem = data.find((item) => String(item.id) === String(params.id))
-
-    if (!currentDiaryItem) { //currentDiaryItem이 존재하지 않는다 (사용자가 없는 페이지에 들어감)
-      window.alert("존재하지 않는 일기입니다.")
-      nav('/',{replace:true})
-    }
-    setCurrentDiaryItem(currentDiaryItem)
-  },[params.id,data])
+  const currentDiaryItem = useDiary(params.id)
 
   // 삭제하기 클릭했을 때
   const onClickDelete = () => {

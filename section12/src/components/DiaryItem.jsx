@@ -14,7 +14,7 @@ const DiaryItem = ({id,emotionId,createDate,content}) => {
             className={`img-section img-section-${emotionId}`}>
             <img src={getEmotionImage(emotionId)}/>
         </div>
-        <div onClick={() => nav(`/diary/:${id}`)} 
+        <div onClick={() => nav(`/diary/${id}`)} 
             className='info-section'>
             <div className='create-date'>
                 {new Date(createDate).toLocaleDateString()}
