@@ -5,14 +5,14 @@ import Viewer from '../components/Viewer'
 import { useNavigate, useParams } from 'react-router-dom'
 import useDiary from '../hooks/useDiary'
 import { getStringDate } from '../util/get-string-date'
-
-
+import usePageTitle from '../hooks/usePageTitle'
 
 const Diary = () => {
   const params = useParams();
   const nav = useNavigate();
   const currentDiaryItem = useDiary(params.id)
-  console.log(currentDiaryItem)
+  //console.log(currentDiaryItem)
+    usePageTitle(`${params.id}번 일기`)
   
   if (!currentDiaryItem) {
     return <div>데이터 로딩중...</div>
